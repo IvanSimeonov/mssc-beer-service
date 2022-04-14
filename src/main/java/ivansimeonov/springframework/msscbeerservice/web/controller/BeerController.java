@@ -34,7 +34,7 @@ public class BeerController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/{beerId")
+    @DeleteMapping("/{beerId}")
     public ResponseEntity<BeerDto> deleteBeerById(@PathVariable("beerId") UUID beerId) {
         // TODO: 14.04.22 Implement Method
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
