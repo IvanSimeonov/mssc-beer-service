@@ -8,8 +8,9 @@ import org.mapstruct.Mapper;
  * @Author ivansimeonov
  * @Date 20.04.22
  */
-@Mapper(uses = DateMapper.class)
+@Mapper(uses = DateMapper.class, componentModel = "spring")
 public interface BeerMapper {
+
     BeerDto beerToBeerDto(Beer beer);
 
     Beer beerDtoToBeer(BeerDto beerDto);
