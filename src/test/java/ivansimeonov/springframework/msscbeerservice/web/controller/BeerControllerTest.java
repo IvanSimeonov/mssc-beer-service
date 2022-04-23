@@ -1,6 +1,7 @@
 package ivansimeonov.springframework.msscbeerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ivansimeonov.springframework.msscbeerservice.bootstrap.BeerLoader;
 import ivansimeonov.springframework.msscbeerservice.services.BeerService;
 import ivansimeonov.springframework.msscbeerservice.web.model.BeerDto;
 import ivansimeonov.springframework.msscbeerservice.web.model.BeerStyleEnum;
@@ -87,7 +88,7 @@ class BeerControllerTest {
         return BeerDto.builder()
                 .beerName("Heineken")
                 .beerStyle(BeerStyleEnum.PALE_ALE)
-                .upc(100003000L)
+                .upc(BeerLoader.BEER_1_UPC)
                 .price(new BigDecimal("3.99"))
                 .build();
     }
