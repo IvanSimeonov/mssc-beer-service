@@ -1,6 +1,9 @@
 package ivansimeonov.springframework.msscbeerservice.services;
 
 import ivansimeonov.springframework.msscbeerservice.web.model.BeerDto;
+import ivansimeonov.springframework.msscbeerservice.web.model.BeerPagedList;
+import ivansimeonov.springframework.msscbeerservice.web.model.BeerStyleEnum;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.UUID;
 
@@ -9,6 +12,11 @@ import java.util.UUID;
  * @Date 22.04.22
  */
 public interface BeerService {
+
+    BeerPagedList beersList(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+
+    BeerDto getByUpc(String upc);
+
     BeerDto getById(UUID beerId);
 
     BeerDto addNewBeer(BeerDto beerDto);

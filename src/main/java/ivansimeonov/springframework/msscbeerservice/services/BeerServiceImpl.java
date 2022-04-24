@@ -5,10 +5,16 @@ import ivansimeonov.springframework.msscbeerservice.repositories.BeerRepository;
 import ivansimeonov.springframework.msscbeerservice.web.controller.NotFoundException;
 import ivansimeonov.springframework.msscbeerservice.web.mappers.BeerMapper;
 import ivansimeonov.springframework.msscbeerservice.web.model.BeerDto;
+import ivansimeonov.springframework.msscbeerservice.web.model.BeerPagedList;
+import ivansimeonov.springframework.msscbeerservice.web.model.BeerStyleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @Author ivansimeonov
@@ -24,6 +30,37 @@ public class BeerServiceImpl implements BeerService {
     public BeerServiceImpl(BeerMapper beerMapper, BeerRepository beerRepository) {
         this.beerMapper = beerMapper;
         this.beerRepository = beerRepository;
+    }
+
+    @Override
+    public BeerPagedList beersList(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest) {
+        BeerPagedList beerPagedList;
+        Page<Beer> beerPage;
+        if (!StringUtils.hasLength(beerName) && !StringUtils.hasLength(String.valueOf(beerStyle))) {
+            beerPage = beerRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageRequest);
+        } else if (!StringUtils.hasLength(beerName) && StringUtils.hasLength(String.valueOf(beerStyle))) {
+            beerPage = beerRepository.findAllByBeerName(beerName, pageRequest);
+        } else if (StringUtils.hasLength(beerName) && !StringUtils.hasLength(String.valueOf(beerStyle))) {
+            beerPage = beerRepository.findAllByBeerStyle(beerStyle, pageRequest);
+        } else {
+            beerPage = beerRepository.findAll(pageRequest);
+        }
+        beerPagedList = new BeerPagedList(beerPage
+                .getContent()
+                .stream()
+                .map(beerMapper::beerToBeerDto)
+                .collect(Collectors.toList()),
+                PageRequest
+                        .of(beerPage.getPageable().getPageNumber(),
+                                beerPage.getPageable().getPageSize()),
+                beerPage.getTotalElements());
+
+        return beerPagedList;
+    }
+
+    @Override
+    public BeerDto getByUpc(String upc) {
+        return beerMapper.beerToBeerDto(beerRepository.findBeerByUpc(upc));
     }
 
     @Override
