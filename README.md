@@ -2,3 +2,5 @@
 # MSSC Beer Service
 
 #### Spring Boot Microservice Example
+
+#### Api Docs can be viewed locally on: http://localhost:8080/swagger-ui/index.html#/
