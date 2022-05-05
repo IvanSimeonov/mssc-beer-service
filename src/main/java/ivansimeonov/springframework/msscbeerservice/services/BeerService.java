@@ -13,11 +13,11 @@ import java.util.UUID;
  */
 public interface BeerService {
 
-    BeerPagedList beersList(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+    BeerPagedList beersList(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand);
 
     BeerDto getByUpc(String upc);
 
-    BeerDto getById(UUID beerId);
+    BeerDto getById(UUID beerId, Boolean showInventoryOnHand);
 
     BeerDto addNewBeer(BeerDto beerDto);
 
