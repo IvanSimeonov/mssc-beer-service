@@ -1,6 +1,5 @@
 package ivansimeonov.springframework.msscbeerservice.web.controller;
 
-import ivansimeonov.springframework.msscbeerservice.domain.Beer;
 import ivansimeonov.springframework.msscbeerservice.services.BeerService;
 import ivansimeonov.springframework.msscbeerservice.web.model.BeerDto;
 import ivansimeonov.springframework.msscbeerservice.web.model.BeerPagedList;
@@ -21,7 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/beer")
+@RequestMapping("/api/v1/")
 public class BeerController {
 
     private static final Integer DEFAULT_PAGE_NUMBER = 0;
@@ -45,7 +44,7 @@ public class BeerController {
         return new ResponseEntity<>(beersList, HttpStatus.OK);
     }
 
-    @GetMapping("/{beerId}")
+    @GetMapping("beer/{beerId}")
     public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId) {
         return new ResponseEntity<>(beerService.getById(beerId), HttpStatus.OK);
     }
@@ -55,17 +54,17 @@ public class BeerController {
         return new ResponseEntity<>(beerService.getByUpc(upc), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("beer")
     public ResponseEntity<BeerDto> addBeer(@Validated @RequestBody BeerDto beerDto) {
         return new ResponseEntity<>(beerService.addNewBeer(beerDto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{beerId}")
+    @PutMapping("beer/{beerId}")
     public ResponseEntity<BeerDto> updateBeerById(@PathVariable("beerId") UUID beerId, @Validated @RequestBody BeerDto beerDto) {
         return new ResponseEntity<>(beerService.updateBeerById(beerId, beerDto), HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/{beerId}")
+    @DeleteMapping("beer/{beerId}")
     public ResponseEntity<BeerDto> deleteBeerById(@PathVariable("beerId") UUID beerId) {
         this.beerService.deleteBeerById(beerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
