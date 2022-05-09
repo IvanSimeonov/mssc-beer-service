@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>ivansimeonov.springframework</groupId>
+        <groupId>com.github.IvanSimeonov</groupId>
         <artifactId>mssc-brewery-bom</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>INITIAL-TAG</version>
     </parent>
 
     <artifactId>mssc-beer-service</artifactId>
@@ -33,5 +33,12 @@
             <version>3.10.0</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
 </project>
